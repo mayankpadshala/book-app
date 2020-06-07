@@ -1,0 +1,35 @@
+{
+  "name": "book-app",
+  "version": "1.0.0",
+  "description": "This app provides the capability for you to store the books you want to read and provides the capability to track the books that you have already read.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayankpadshala/book-app.git"
+  },
+  "author": "Mayank Padshala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mayankpadshala/book-app/issues"
+  },
+  "homepage": "https://github.com/mayankpadshala/book-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": "1000",
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": 5000
+    }
+  }
+}
