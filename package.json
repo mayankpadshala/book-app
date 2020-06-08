@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mayankpadshala/book-app#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.9.18",
     "nodemon": "^2.0.4"
   },
   "nodemonConfig": {
