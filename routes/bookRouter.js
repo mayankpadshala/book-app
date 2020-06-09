@@ -19,7 +19,6 @@ bookRouter
   .post((req, res) => {
     Book.findOne({ title: req.body.title }, (err, bookFound) => {
       if (err) {
-        console.log(err);
         return res.send(err);
       }
       if (bookFound) {
