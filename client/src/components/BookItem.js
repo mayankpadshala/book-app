@@ -10,7 +10,7 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
+    width: 320,
     border: 'solid',
   },
   bullet: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const BookItem = (props) => {
   const classes = useStyles();
-  const { title, author, genre, read } = props;
+  const { title, author, genre, read, id, handleBookClick } = props;
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -37,7 +37,7 @@ const BookItem = (props) => {
           color='textSecondary'
           gutterBottom
         >
-          Reading
+          {read ? 'Finished Reading' : 'Reading'}
         </Typography>
         <Typography variant='h6' component='h2' noWrap>
           {title}
@@ -45,12 +45,11 @@ const BookItem = (props) => {
         <Typography className={classes.pos} color='textSecondary'>
           Book by {author}
         </Typography>
-        <Typography color='textSecondary'>
-          <b>Genre: </b> {genre}
-        </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small'>Read</Button>
+        <Button size='small' onClick={() => handleBookClick(id, read)}>
+          {read ? 'Delete' : 'Read'}
+        </Button>
       </CardActions>
     </Card>
   );

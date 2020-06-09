@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     padding: '32px',
   },
+  gridListTile: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+  },
 }));
 
 const apiKey = 'sOH0vsACqOdhqFnFwCSbGw';
@@ -88,7 +93,7 @@ const Search = (props) => {
           className={classes.gridList}
         >
           {books.map((book) => (
-            <GridListTile key={book.id}>
+            <GridListTile key={book.id} className={classes.gridListTile}>
               <SearchItem
                 title={book.best_book.title}
                 genre=''

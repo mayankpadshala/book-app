@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
@@ -11,55 +11,60 @@ import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
+    width: 300,
     border: 'solid',
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
+    margin: '0 0 6px 8px',
   },
 }));
-
-const addToMyBooks = (bookItem) => {
-  const book = {
-    title: bookItem.title,
-    author: bookItem.author,
-    genre: 'Fiction',
-    read: false,
-  };
-  axios
-    .post('http://localhost:5000/api/books', book)
-    .then((res) => {
-      console.log(res);
-      console.log(res.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
 
 const SearchItem = (props) => {
   const classes = useStyles();
   const { title, author } = props;
+  const [error, setError] = useState('');
+
+  const addToMyBooks = (bookItem) => {
+    const book = {
+      title: bookItem.title,
+      author: bookItem.author,
+      genre: 'Fiction',
+      read: false,
+    };
+    axios
+      .post('http://localhost:5000/api/books', book)
+      .then((res) => {
+        if (res.status == 201) {
+          setError('Added');
+        } else {
+          setError('Already Added');
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography variant='subtitle1' noWrap>
-          {title}
+          {error ? error : title}
         </Typography>
-        <Typography color='textSecondary'>Book by {author}</Typography>
+        <Typography color='textSecondary' noWrap>
+          {error ? `Book ${title}` : `Book by ${author}`}
+        </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small' onClick={() => addToMyBooks(props)}>
-          Add to Reading List
-        </Button>
+        {error ? (
+          <Typography color='textSecondary' className={classes.bullet}>
+            Book by {author}
+          </Typography>
+        ) : (
+          <Button size='small' onClick={() => addToMyBooks(props)}>
+            Add to Reading List
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

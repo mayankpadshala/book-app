@@ -14,8 +14,9 @@ const useStyles = makeStyles((theme) => ({
     margin: '16px',
   },
   gridList: {
+    display: 'flex',
+    flex: 1,
     justifyContent: 'center',
-    minWidth: '75%',
   },
 }));
 
@@ -23,8 +24,8 @@ const Home = (props) => {
   const [books, setBooks] = useState([]);
   const [load, setLoad] = useState(false);
   const [error, setError] = useState('');
-  //useEffect
-  useEffect(() => {
+
+  const getBooks = () => {
     axios
       .get('http://localhost:5000/api/books')
       .then((res) => {
@@ -35,7 +36,33 @@ const Home = (props) => {
         setError(err.message);
         setLoad(true);
       });
+  };
+
+  useEffect(() => {
+    getBooks();
   }, []);
+
+  const handleBookClick = (bookId, read) => {
+    if (read) {
+      axios
+        .delete(`http://localhost:5000/api/books/${bookId}`)
+        .then((res) => {
+          getBooks();
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    } else {
+      axios
+        .patch(`http://localhost:5000/api/books/${bookId}`, { read: true })
+        .then((res) => {
+          getBooks();
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    }
+  };
 
   const classes = useStyles();
 
@@ -45,28 +72,28 @@ const Home = (props) => {
         <GridList
           cols={4}
           spacing={32}
-          className={classes.gridList}
           cellHeight={'auto'}
+          className={classes.gridList}
         >
           {error ? (
             <Typography
-              component='h5'
-              variant='h5'
+              component='h6'
+              variant='h6'
               color='inherit'
               align='center'
-              noWrap
-              className={classes.toolbarTitle}
             >
               {error}
             </Typography>
           ) : (
             books.map((book) => (
-              <GridListTile key={book._id}>
+              <GridListTile key={book._id} className={classes.gridList}>
                 <BookItem
                   title={book.title}
                   genre={book.genre}
                   author={book.author}
                   read={book.read}
+                  id={book._id}
+                  handleBookClick={handleBookClick}
                 />
               </GridListTile>
             ))
@@ -77,14 +104,7 @@ const Home = (props) => {
   } else {
     return (
       <Paper elevation={0} className={classes.root}>
-        <Typography
-          component='h5'
-          variant='h5'
-          color='inherit'
-          align='center'
-          noWrap
-          className={classes.toolbarTitle}
-        >
+        <Typography component='h5' variant='h5' color='inherit' align='center'>
           Loading App...
         </Typography>
       </Paper>
