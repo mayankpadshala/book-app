@@ -6,7 +6,6 @@ import {
   CardContent,
   Button,
   Typography,
-  StylesProvider,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +39,7 @@ const BookItem = (props) => {
         >
           Reading
         </Typography>
-        <Typography variant='h6' component='h2'>
+        <Typography variant='h6' component='h2' noWrap>
           {title}
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
