@@ -3,15 +3,15 @@
 A simple app that helps users to keep their favoutite books at one place. It uses goodreads api to get books data.
 
 Features
-Search for a book by author or by title
-Added books to your collection
-Mark books as read after completing reading
-Delete book from your collection
+- Search for a book by author or by title
+- Added books to your collection
+- Mark books as read after completing reading
+- Delete book from your collection
 
 Libraries Used
-React with Material-UI for frontend
-MongoDB for storing books in collection
-Express and Node for server.
+- React with Material-UI for frontend
+- MongoDB for storing books in collection
+- Express and Node for server.
 
 Steps to start the app
 1. npm install -> installs node dependency for server
@@ -21,6 +21,6 @@ Steps to start the app
 5. npm start -> starts the react app on port 3000
 
 Future Development
-Add more information about the book like description, link to the goodreads description page.
-Add capability to filter books by author
-Add tags to books to organize books in a better way and allow users to filter based on tags.
+- Add more information about the book like description, link to the goodreads description page.
+- Add capability to filter books by author
+- Add tags to books to organize books in a better way and allow users to filter based on tags.
